@@ -2,8 +2,9 @@
 {
     public class Vertex
     {
-        public object? Id { get; set; }
+        public Guid? Id { get; set; }
         public string? Label { get; set; }
-        public string PartitionKey { get; set; } = "pk";
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "CosmosDb has its partition key set as lowercase pk")]
+        public string pk { get; set; } = "pk";
     }
 }

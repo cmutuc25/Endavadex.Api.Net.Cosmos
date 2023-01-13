@@ -6,12 +6,10 @@ namespace Endavadex.Api.Repositories
 {
     public class UserRepository
     {
-        private readonly TextWriter _writer;
         private readonly IGremlinQuerySource _g;
 
-        public UserRepository(TextWriter writer, IGremlinQuerySource g)
+        public UserRepository(IGremlinQuerySource g)
         {
-            _writer = writer;
             _g = g;
         }
 

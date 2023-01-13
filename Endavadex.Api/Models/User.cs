@@ -1,4 +1,6 @@
-﻿namespace Endavadex.Api.Models
+﻿using Gremlin.Net.Structure;
+
+namespace Endavadex.Api.Models
 {
     public class User : Vertex
     {
