@@ -1,4 +1,5 @@
-﻿using Endavadex.Api.Models;
+﻿using Endavadex.Api.Controllers.Dtos;
+using Endavadex.Api.Models;
 using Endavadex.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,17 +25,34 @@ namespace Endavadex.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostUser([FromBody] User user)
+        public async Task<IActionResult> PostUser([FromBody] UserDto userDto)
         {
+            var user = new User
+            {
+                Name = userDto.Name,
+                Email = userDto.Email,
+            };
+
             var result = await _userRepository.CreateUser(user);
 
             return Ok(result);
         }
 
         [HttpPost("{userId:Guid}/projects/{projectId}/assign")]
-        public async Task<IActionResult> PostAssignUserToProject([FromRoute] Guid userId, [FromRoute] Guid projectId, [FromBody] Assignment assigned)
+        public async Task<IActionResult> PostAssignUserToProject(
+            [FromRoute] Guid userId,
+            [FromRoute] Guid projectId,
+            [FromBody] AssignmentDto assignmentDto)
         {
-            var result = await _userRepository.AssignUserToProject(userId, projectId, assigned);
+            var assignment = new Assignment
+            {
+                Role = assignmentDto.Role,
+                Duties = assignmentDto.Duties,
+                StartDate = assignmentDto.StartDate,
+                EndDate = assignmentDto.EndDate
+            };
+
+            var result = await _userRepository.AssignUserToProject(userId, projectId, assignment);
 
             return Ok(result);
         }

@@ -1,4 +1,5 @@
-﻿using Endavadex.Api.Models;
+﻿using Endavadex.Api.Controllers.Dtos;
+using Endavadex.Api.Models;
 using Endavadex.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,8 +25,16 @@ namespace Endavadex.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostProject([FromBody] Project project)
+        public async Task<IActionResult> PostProject([FromBody] ProjectDto projectDto)
         {
+            var project = new Project()
+            {
+                Client = projectDto.Client,
+                Description = projectDto.Description,
+                StartDate = projectDto.StartDate,
+                EndDate = projectDto.EndDate
+            };
+
             var result = await _projectRepository.CreateProject(project);
 
             return Ok(result);
