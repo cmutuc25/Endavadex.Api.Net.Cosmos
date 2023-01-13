@@ -1,6 +1,5 @@
 ﻿using Endavadex.Api.Models;
 using ExRam.Gremlinq.Core;
-using System.Linq;
 
 namespace Endavadex.Api.Repositories
 {

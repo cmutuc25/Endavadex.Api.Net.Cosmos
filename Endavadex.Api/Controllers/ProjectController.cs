@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using ExRam.Gremlinq.Core;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+﻿using Endavadex.Api.Models;
 using Endavadex.Api.Repositories;
-using Endavadex.Api.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Endavadex.Api.Controllers
 {
