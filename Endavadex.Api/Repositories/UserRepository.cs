@@ -6,21 +6,30 @@ namespace Endavadex.Api.Repositories
 {
     public class UserRepository
     {
-        private readonly IGremlinQuerySource _g;
+        private readonly IGremlinQuerySource _gremlinQuerySource;
 
-        public UserRepository(IGremlinQuerySource g)
+        public UserRepository(IGremlinQuerySource gremlinQuerySource)
         {
-            _g = g;
+            _gremlinQuerySource = gremlinQuerySource;
         }
 
-        public async Task<User[]?> GetUsers()
+        public async Task<User[]> ReadUsers()
         {
-            return await _g.V<User>();
+            return await _gremlinQuerySource.V<User>();
         }
 
-        public async Task<User?> CreateUser(User user)
+        public async Task<User> CreateUser(User user)
         {
-            return await _g.AddV(user).FirstAsync();
+            return await _gremlinQuerySource.AddV(user).FirstAsync();
+        }
+
+        public async Task<Assignment> AssignUserToProject(Guid userId, Guid projectId, Assignment assigned)
+        {
+            return await _gremlinQuerySource
+                .V(userId)
+                .AddE(assigned)
+                .To(_ => _.V(projectId))
+                .FirstAsync();
         }
     }
 }

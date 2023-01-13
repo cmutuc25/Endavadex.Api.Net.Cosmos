@@ -13,6 +13,7 @@ namespace Endavadex.Api
             // Add services to the container.
             builder.Services.AddGremlinq(gremlinSetup => gremlinSetup.UseCosmosDb<Vertex, Edge>(v => v.pk));
             builder.Services.AddTransient<UserRepository>();
+            builder.Services.AddTransient<ProjectRepository>();
 
             builder.Services.AddControllers();
 

@@ -2,7 +2,7 @@
 {
     public class Edge
     {
-        public object? Id { get; set; }
-        public virtual string Label { get; set; } = "edge";
+        public Guid? Id { get; set; }
+        public string? Label { get; set; }
     }
 }

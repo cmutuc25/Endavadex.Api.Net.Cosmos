@@ -7,23 +7,21 @@ using Endavadex.Api.Models;
 
 namespace Endavadex.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IGremlinQuerySource _source;
         private readonly UserRepository _userRepository;
 
-        public UserController(IGremlinQuerySource source, UserRepository userRepository)
+        public UserController(UserRepository userRepository)
         {
-            _source = source;
             _userRepository = userRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var result = await _userRepository.GetUsers();
+            var result = await _userRepository.ReadUsers();
 
             return Ok(result);
         }
@@ -32,6 +30,14 @@ namespace Endavadex.Api.Controllers
         public async Task<IActionResult> PostUser([FromBody] User user)
         {
             var result = await _userRepository.CreateUser(user);
+
+            return Ok(result);
+        }
+
+        [HttpPost("{userId:Guid}/projects/{projectId}/assign")]
+        public async Task<IActionResult> PostAssignUserToProject([FromRoute] Guid userId, [FromRoute] Guid projectId, [FromBody] Assignment assigned)
+        {
+            var result = await _userRepository.AssignUserToProject(userId, projectId, assigned);
 
             return Ok(result);
         }
